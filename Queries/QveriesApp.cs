@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryBooksWebApi_1.Queries
 {
@@ -19,18 +20,17 @@ namespace LibraryBooksWebApi_1.Queries
         //GET https://{{baseUrl}}/api/books?order=author
         public IEnumerable<Book> GetAllBooksOrder(string order)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                var books = (from b in db.Books
-                             where b.Title == order || b.Author == order
-                             select b).ToList();
+            using ApplicationContext db = new ApplicationContext();
 
-                foreach (var book in books)
-                    Console.WriteLine($"{book.Id}  {book.Title} {book.Author} {book.Ratings} {book.Reviews.Count}");
+            var books = (from b in db.Books
+                         where b.Title == order || b.Author == order
+                         select b).ToList();
+
+            foreach (var book in books)
+                Console.WriteLine($"{book.Id}  {book.Title} {book.Author} {book.Ratings} {book.Reviews.Count}");
 
 
-                return books;
-            }
+            return books;
         }
 
 
@@ -43,12 +43,19 @@ namespace LibraryBooksWebApi_1.Queries
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                var topBooks = (from b in db.Books
-                                where b.Genre == recommended
-                                select b);
-               //TO DO              
+                var top10Books = db.Books
+                    .Select(b => new
+                    {
+                        Book = b,
+                        AverageRating = db.Ratings
+                            .Where(br => br.BookId == b.Id)
+                            .Average(br => br.Score)
+                    })
+                    .OrderByDescending(x => x.AverageRating)
+                    .Take(10)
+                    .Select(x => x.Book);
 
-                return topBooks;
+                return top10Books;
             }
         }
 
@@ -56,19 +63,52 @@ namespace LibraryBooksWebApi_1.Queries
         //3. Get book details with the list of reviews
         //GET https://{{baseUrl}}/api/books/{id}
 
-        public IEnumerable<Book> GetDetails(int id)
+        public Object GetDetails(int id)
         {
-            //using (ApplicationContext db = new ApplicationContext())
-            //{
-            //    var topBooks = (from b in db.Books
-            //                    where b.Id == id
-            //                    select b);
-            //    //TO DO              
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                var topBooks = ( db.Books.Find(id)
+                               
+                                //,
+                    //(from rat in db.Ratings
+                    // where rat.BookId == id
+                    // select rat.Score).Average(),
+                    //           (from rev in db.Reviews
+                    //            where rev.BookId == id
+                    //            select rev)
+                               );
 
-            //    return topBooks;
-            //}
 
-            throw new NotImplementedException();
+                //(from b in db.Books
+                //             where b.Id == id
+                //             select b);
+
+
+                //var topBooks = db.Books
+                //     .OrderByDescending(b => b.Ratings)
+                //     .Take(10)
+                //     .Select(b => new
+                //     {
+                //         b.Id,
+                //         b.Title,
+                //         b.Author,
+                //         b.Cover,
+                //         b.Content,
+                //         b.Ratings,
+                //         Reviews = db.Reviews
+                //             .Where(r => r.BookId == b.Id)
+                //             .Select(r => new
+                //             {
+                //                 r.Id,
+                //                 r.message,
+                //                 r.reviewer
+                //             }).ToList()
+                //     }).ToList();
+
+                return topBooks;
+            }
+
+           
         }
 
 
@@ -77,33 +117,54 @@ namespace LibraryBooksWebApi_1.Queries
 
         internal void DeleteSecret(int id, string secret)
         {
-            throw new NotImplementedException();
+            string secretConst = "qwerty";
+            using ApplicationContext db = new ApplicationContext();
+
+            Book book = db.Books.Find(id);
+            if (book != null && secret.Equals(secretConst))
+            {
+                //удаляем объект
+                db.Books.Remove(book);
+                db.SaveChanges();
+            }
         }
 
         //5. Save a new book.
         //POST https://{{baseUrl}}/api/books/save
 
-        internal void SaveBook(Book book)
+        internal Book SaveBook(Book book)
         {
-            throw new NotImplementedException();
+            using ApplicationContext db = new ApplicationContext();
+            db.Books.Add(book);
+            db.SaveChanges();
+
+            return book;
         }
 
 
         //6. Save a review for the book.
         //PUT https://{{baseUrl}}/api/books/{id}/review
 
-        internal void ReviewAdd(int id, Review review)
+        internal Review ReviewAdd(int id, Review review)
         {
-            throw new NotImplementedException();
+            using ApplicationContext db = new ApplicationContext();
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return review;
         }
 
 
         //7. Rate a book
         //PUT https://{{baseUrl}}/api/books/{id}/rate
 
-        internal void RatingAdd(int id, Rating rate)
+        internal Rating RatingAdd(int id, Rating rate)
         {
-            throw new NotImplementedException();
+            using ApplicationContext db = new ApplicationContext();
+            db.Ratings.Add(rate);
+            db.SaveChanges();
+
+            return rate;
         }
 
     }

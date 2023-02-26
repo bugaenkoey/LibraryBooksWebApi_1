@@ -35,7 +35,7 @@ namespace LibraryBooksWebApi_1.Controllers
         //GET https://{{baseUrl}}/api/books/{id}
 
         [HttpGet("id")]
-        public IEnumerable<Book> GetDetails(int id)
+        public Object GetDetails(int id)
         {
             return new QveriesApp().GetDetails(id);
         }
@@ -52,9 +52,9 @@ namespace LibraryBooksWebApi_1.Controllers
         //5. Save a new book.
         //POST https://{{baseUrl}}/api/books/save
         [HttpPost("save")]
-        public void Save([FromBody] Book book)
+        public Book Save([FromBody] Book book)
         {
-            new QveriesApp().SaveBook(book);
+           return new QveriesApp().SaveBook(book);
 
         }
 
@@ -63,9 +63,9 @@ namespace LibraryBooksWebApi_1.Controllers
         [HttpPut("{id}/review")]
 
         //[AcceptVerbs("PutReview")]
-        public void PutReview(int id, [FromBody] Review review)
+        public Review PutReview(int id, [FromBody] Review review)
         {
-            new QveriesApp().ReviewAdd(id, review);
+          return  new QveriesApp().ReviewAdd(id, review);
 
         }
 
@@ -74,14 +74,10 @@ namespace LibraryBooksWebApi_1.Controllers
 
         [HttpPut("{id}/rate")]
         //[AcceptVerbs("PutRating")]
-        public void PutRating(int id, [FromBody] Rating rate)
+        public Rating PutRating(int id, [FromBody] Rating rate)
         {
-            new QveriesApp().RatingAdd(id, rate);
+          return  new QveriesApp().RatingAdd(id, rate);
         }
-
-
-
-
 
     }
 }
