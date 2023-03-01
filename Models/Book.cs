@@ -9,9 +9,6 @@ namespace LibraryBooksWebApi.Models
     public class Book
     {
 
-        //id Title Cover Content Author Genre 
-
-
 //#   "id": "number",
 //#   "title": "string",
 //#   "author": "string",
@@ -24,6 +21,7 @@ namespace LibraryBooksWebApi.Models
 //#           "reviewer": "string",
 //#   }]
 
+        //id Title Cover Content Author Genre 
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }

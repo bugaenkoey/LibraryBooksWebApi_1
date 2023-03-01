@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "82ca54d2-6af2-4c43-a398-c5839062d4b7",
+		"name": "LibraryBooksWebApi_1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17855530"
+	},
+	"item": [
+		{
+			"name": "https://localhost:7173/api/Book?order=Title18",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7173/api/Book?order=Title18",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "Title18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book/id?id=23",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7173/api/Book/id?id=23",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book",
+						"id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book/recommended?genre=Horror",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7173/api/Book/recommended?genre=Horror",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book",
+						"recommended"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "Horror"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book?order=Ivan%20Franko",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7173/api/Book?order=Ivan%20Franko",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "Ivan%20Franko"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book/id?id=20&secret=qwerty",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7173/api/Book/id?id=20&secret=qwerty",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book",
+						"id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "20"
+						},
+						{
+							"key": "secret",
+							"value": "qwerty"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book/25/review",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"message\": \"string\",\r\n  \"bookId\": 0,\r\n  \"reviewer\": \"string\",\r\n  \"book\": {\r\n    \"id\": 0,\r\n    \"title\": \"string\",\r\n    \"cover\": \"string\",\r\n    \"content\": \"string\",\r\n    \"author\": \"string\",\r\n    \"genre\": \"string\",\r\n    \"ratings\": [\r\n      {\r\n        \"id\": 0,\r\n        \"bookId\": 0,\r\n        \"score\": 5,\r\n        \"book\": \"string\"\r\n      }\r\n    ],\r\n    \"reviews\": [\r\n      \"string\"\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7173/api/Book/25/review",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book",
+						"25",
+						"review"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7173/api/Book/15/rate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"bookId\": 0,\r\n  \"score\": 5,\r\n  \"book\": {\r\n    \"id\": 0,\r\n    \"title\": \"string\",\r\n    \"cover\": \"string\",\r\n    \"content\": \"string\",\r\n    \"author\": \"string\",\r\n    \"genre\": \"string\",\r\n    \"ratings\": [\r\n      \"string\"\r\n    ],\r\n    \"reviews\": [\r\n      {\r\n        \"id\": 0,\r\n        \"message\": \"string\",\r\n        \"bookId\": 0,\r\n        \"reviewer\": \"string\",\r\n        \"book\": \"string\"\r\n      }\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7173/api/Book/25/rate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7173",
+					"path": [
+						"api",
+						"Book",
+						"25",
+						"rate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -26,6 +26,7 @@ namespace LibraryBooksWebApi_1.Controllers
 
 
         [HttpGet("recommended")]
+        //public IEnumerable<Book> GetTop10(string genre)
         public IEnumerable<Book> GetTop10(string genre)
         {
             return new QveriesApp().GetTop10(genre);
@@ -51,7 +52,7 @@ namespace LibraryBooksWebApi_1.Controllers
 
         //5. Save a new book.
         //POST https://{{baseUrl}}/api/books/save
-        [HttpPost("save")]
+        [HttpPost("{id}/save")]
         public Book Save([FromBody] Book book)
         {
            return new QveriesApp().SaveBook(book);
